@@ -1,0 +1,66 @@
+version: '3.1'
+services:
+  config-service:
+    build: ./config-service/
+    hostname: config-service
+    ports:
+      - "8888:8888"
+    networks:
+      - default-network
+
+  customer-service:
+    build: ./customer-service/
+    hostname: customer-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - config-service
+    networks:
+      - default-network
+
+  inventory-service:
+    build: ./inventory-service/
+    hostname: inventory-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - config-service
+    networks:
+      - default-network
+
+  order-service:
+    build: ./order-service/
+    hostname: order-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - config-service
+    networks:
+      - default-network
+
+  billing-service:
+    build: ./billing-service/
+    hostname: billing-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - config-service
+    networks:
+      - default-network
+
+  gateway-service:
+    build: ./gateway-service/
+    hostname: gateway-service
+    ports:
+      - "9999:9999"
+    depends_on:
+      - config-service
+      - customer-service
+      - inventory-service
+      - order-service
+    networks:
+      - default-network
+
+networks:
+  default-network:
+    driver: bridge
