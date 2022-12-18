@@ -27,7 +27,12 @@ git clone https://github.com/ra-ens/microservice-consul.git
 cd microservice-consul
 ```
 
-3. Start the application using Docker Compose:
+3. Create jar files, for each service execute the following command
+```bash
+mvn install
+```
+
+4. Start the application using Docker Compose:
 
 ```bash
 docker-compose up
